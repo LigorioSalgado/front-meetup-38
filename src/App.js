@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'; //useState  -> hook
+import Navbar from './components/Navbar';
+import MasterHead from './components/MasterHead';
 
 function App() {
+  //const [title,setTitle] = useState('Clone de Meetup')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+   <Navbar/>
+   <MasterHead title={"Clone Meetup"} 
+   subtitle="Este es un clone educacional de meetup"/>
+   {/* 
+     <button className="btn btn-danger"  
+   onClick={ () => setTitle("Titulo desde el click")  }
+   >Cambiar titulo</button>
+   
+   */}
+  
+  </>
   );
 }
 
