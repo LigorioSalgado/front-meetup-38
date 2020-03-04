@@ -6,7 +6,7 @@ class MasterHead extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: `${props.title} - Desde MeasterHead`
+      title: `${props.title}`
     };
   }
 
