@@ -1,10 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import payload from "../Utils/payload";
 
 //fucntion component
 function Navbar() {
+  const isAuthenticated = localStorage.getItem("clone") !== null;
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav
+      className="navbar navbar-expand-lg navbar-light fixed-top"
+      id="mainNav"
+    >
       <div className="container">
         <NavLink className="navbar-brand" to="/">
           Clone Meetup
@@ -28,16 +34,38 @@ function Navbar() {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/signup">
-                Crear Cuenta
-              </NavLink>
-            </li>
+            {isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/profile">
+                    Hola {payload().first_name}
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/event/new">
+                    Crear Evento
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/logout">
+                    logout
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/login">
+                    Login
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/signup">
+                    Crear Cuenta
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

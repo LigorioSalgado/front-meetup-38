@@ -21,7 +21,7 @@ function Login(props) {
     if(!loading && data){
       localStorage.setItem('clone',data.login)
       props.history.push('/')
-    }else if(error){
+    }else if(!loading && error){
       alert(error.message);
     }
 
