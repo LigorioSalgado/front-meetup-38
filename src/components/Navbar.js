@@ -1,13 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 //fucntion component
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div className="container">
-        <a className="navbar-brand" href="index.html">
-          Start Bootstrap
-        </a>
+        <NavLink className="navbar-brand" to="/">
+          Clone Meetup
+        </NavLink>
         <button
           className="navbar-toggler navbar-toggler-right"
           type="button"
@@ -23,24 +24,19 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <a className="nav-link" href="index.html">
+              <NavLink className="nav-link" to="/">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="about.html">
-                About
-              </a>
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="post.html">
-                Sample Post
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="contact.html">
-                Contact
-              </a>
+              <NavLink className="nav-link" to="/signup">
+                Crear Cuenta
+              </NavLink>
             </li>
           </ul>
         </div>
