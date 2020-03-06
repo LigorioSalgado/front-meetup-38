@@ -1,8 +1,8 @@
-import React, { useState } from "react"; //useState  -> hook
+import React from "react"; //useState  -> hook
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import Layout from './components/Layout';
-import Card from "./components/Card";
+import Layout from '../components/Layout';
+import Card from "../components/Card";
 
 const GET_EVENTS = gql`
   {
@@ -18,7 +18,7 @@ const GET_EVENTS = gql`
   }
 `;
 
-function App() {
+function Home() {
   //const [title,setTitle] = useState('Clone de Meetup')
   const { loading, data, error } = useQuery(GET_EVENTS);
   if (loading) return <h1>Cargando...</h1>;
@@ -40,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
