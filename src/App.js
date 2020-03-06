@@ -1,26 +1,42 @@
-import React, { useState } from 'react'; //useState  -> hook
-import { ApolloProvider } from '@apollo/react-hooks';
-import Navbar from './components/Navbar';
-import MasterHead from './components/MasterHead';
-import client from './graphql';
+import React, { useState } from "react"; //useState  -> hook
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import Layout from './components/Layout';
+import Card from "./components/Card";
+
+const GET_EVENTS = gql`
+  {
+    getEvents {
+      _id
+      title
+      createdAt
+      created_by {
+        first_name
+        last_name
+      }
+    }
+  }
+`;
 
 function App() {
   //const [title,setTitle] = useState('Clone de Meetup')
+  const { loading, data, error } = useQuery(GET_EVENTS);
+  if (loading) return <h1>Cargando...</h1>;
+  if (error) return <h3>{error.message}</h3>;
+
   return (
-  <ApolloProvider client={client}>
-    <>
-    <Navbar/>
-    <MasterHead title={"Clone Meetup"} 
-    subtitle="Este es un clone educacional de meetup"/>
-    {/* 
-      <button className="btn btn-danger"  
-    onClick={ () => setTitle("Titulo desde el click")  }
-    >Cambiar titulo</button>
-    
-    */}
-    
-    </>
-  </ApolloProvider>
+     
+       <Layout title="Clone de Meetup" 
+               subtitle="Clone para aparender react">
+           {data.getEvents.map(event => (
+                <Card
+                  title={event.title}
+                  author={`${event.first_name} ${event.last_name} `}
+                  date={event.createdAt}
+                />
+              ))}
+       </Layout>
+            
   );
 }
 
