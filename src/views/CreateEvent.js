@@ -1,23 +1,42 @@
 import React, {useState} from "react";
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import Layout from "../components/Layout";
 import useForm from '../hooks/useForm';
 
-function CreateEvent() {
+
+const CREATE_EVENT = gql`
+
+    mutation addEvent($data:Eventadd){
+
+        createEvent(data:$data){
+            _id
+        }
+    }
+`;
+
+
+function CreateEvent(props) {
+
+    const [executeMutation, {loading,data,error}] =  useMutation(CREATE_EVENT);
 
     const [banner,setBanner] = useState('');
     const [preview,setPreview] =  useState('')
     const {inputs:addressInputs, handleInputChange:addressHandle } = useForm()
 
     const catchSubmit = (inputs) => {
-        const data = {
+        const payload = {
             ...inputs,
             banner,
             address:{
                 ...addressInputs
             }
         }
-        console.log(data)
+        executeMutation({variables:{data:payload}})
     }
+
+    if(!loading && data)  props.history.push('/')
+    if(!loading && error) alert(error.message)
 
     const {inputs,handleInputChange,handleSubmit  } = useForm(catchSubmit)
 
@@ -36,7 +55,6 @@ function CreateEvent() {
 
 
     }
-
 
   return (
     <Layout title="Crea un nuevo evento">
