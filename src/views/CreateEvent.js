@@ -1,11 +1,47 @@
-import React from "react";
+import React, {useState} from "react";
 import Layout from "../components/Layout";
+import useForm from '../hooks/useForm';
 
 function CreateEvent() {
+
+    const [banner,setBanner] = useState('');
+    const [preview,setPreview] =  useState('')
+    const {inputs:addressInputs, handleInputChange:addressHandle } = useForm()
+
+    const catchSubmit = (inputs) => {
+        const data = {
+            ...inputs,
+            banner,
+            address:{
+                ...addressInputs
+            }
+        }
+        console.log(data)
+    }
+
+    const {inputs,handleInputChange,handleSubmit  } = useForm(catchSubmit)
+
+   
+    const handleBanner = (event) => {
+
+        const reader =  new FileReader(); // Va a recivir un archivo
+        const file = event.target.files[0]; // Aqui es dode obtenemos el archivo
+
+        reader.onloadend = () => { //Cuando termina de cargar la imagen
+            setBanner(file);
+            setPreview(reader.result) //Aqui se guarda el preview
+        }
+
+        reader.readAsDataURL(file); // Carga la imagen como una url
+
+
+    }
+
+
   return (
     <Layout title="Crea un nuevo evento">
       <h2> Crea un evento</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="control-group">
           <div className="form-group floating-label-form-group controls">
             <label>Titulo del evento</label>
@@ -14,7 +50,8 @@ function CreateEvent() {
               className="form-control"
               placeholder="Titulo del evento"
               name="title"
-             
+              value={inputs.title}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -22,7 +59,12 @@ function CreateEvent() {
         <div className="control-group">
           <div className="form-group floating-label-form-group controls">
             <label>Descripción</label>
-            <textarea name="descritpion" id="" cols="30" rows="10" placeholder="Descripción"></textarea>
+            <textarea name="description" 
+            id="" cols="30" 
+            rows="10" 
+            value={inputs.description}
+            onChange={handleInputChange}
+            placeholder="Descripción"></textarea>
           </div>
         </div>
         <div className="control-group">
@@ -32,6 +74,8 @@ function CreateEvent() {
               type="text"
               className="form-control"
               name="date"
+              value={inputs.date}
+              onChange={handleInputChange}
               placeholder="Fecha del Evento"
               required
             />
@@ -45,11 +89,12 @@ function CreateEvent() {
               className="form-control"
               placeholder="Evento"
               name="banner"
-               
+              onChange={handleBanner}
               required
             />
           </div>
         </div>
+        <img src={preview} width="100px" />
         <h3>Direccion</h3>
         <div className="control-group">
           <div className="form-group floating-label-form-group controls">
@@ -59,6 +104,8 @@ function CreateEvent() {
               className="form-control"
               name="street"
               placeholder="Calle:"
+              value={addressInputs.street}
+              onChange={addressHandle}
               required
             />
           </div>
@@ -70,6 +117,8 @@ function CreateEvent() {
               type="text"
               className="form-control"
               name="number"
+              value={addressInputs.number}
+              onChange={addressHandle}
               placeholder="Numero:"
               required
             />
@@ -82,6 +131,8 @@ function CreateEvent() {
               type="text"
               className="form-control"
               name="city"
+              value={addressInputs.city}
+              onChange={addressHandle}
               placeholder="Ciudad"
               required
             />
@@ -95,6 +146,8 @@ function CreateEvent() {
               className="form-control"
               placeholder="País"
               name="country"
+              value={addressInputs.country}
+              onChange={addressHandle}
               required
             />
           </div>
@@ -107,6 +160,8 @@ function CreateEvent() {
               className="form-control"
               placeholder="Estado"
               name="state"
+              value={addressInputs.state}
+              onChange={addressHandle}
               required
             />
           </div>
@@ -120,6 +175,8 @@ function CreateEvent() {
               className="form-control"
               placeholder="CP"
               name="zip"
+              value={addressInputs.zip}
+              onChange={addressHandle}
               required
             />
           </div>
