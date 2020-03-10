@@ -27,7 +27,7 @@ const authLink = setContext((_,{headers}) => {
 
 }) // Va agegar cabeceras a cada uno de los request
 
-export default ApolloClient({
+export default new ApolloClient({
     link:authLink.concat(httpLink), // Es la combinacion del schema y el envio de cabeceras
     cache: new InMemoryCache() // Va hacer cache de todos los queries
 })
