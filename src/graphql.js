@@ -1,6 +1,35 @@
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client'; //Cliente de apollo
+import { createUploadLink } from 'apollo-upload-client'; // La conexion con el schema 
+import { setContext } from 'apollo-link-context'; // Agrega cabeceras
+import { InMemoryCache } from 'apollo-cache-inmemory'; // Hace cache de queries
+
+const GRAPH_URI = 'https://b38-backend-meetup.herokuapp.com/';
+
+const httpLink = createUploadLink({
+    uri:GRAPH_URI
+}); // Se conecta a graphql y lee el schema
+
+const authLink = setContext((_,{headers}) => {
+
+    const token  = localStorage.getItem('clone');
+
+    const context = {
+        headers:{
+            ...headers,
+        }
+    }
+
+    
+    if (token) Object.assign(context.headers,{authorization: `JWT ${token}`});
 
 
-export default new ApolloClient({
-    uri:'https://b38-backend-meetup.herokuapp.com/' //url al backend
-});
+    return context;
+
+}) // Va agegar cabeceras a cada uno de los request
+
+export default ApolloClient({
+    link:authLink.concat(httpLink), // Es la combinacion del schema y el envio de cabeceras
+    cache: new InMemoryCache() // Va hacer cache de todos los queries
+})
+
+
