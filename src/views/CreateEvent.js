@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Layout from "../components/Layout";
 import useForm from '../hooks/useForm';
-
+import Authenticated from '../Utils/Authenticated';
 
 const CREATE_EVENT = gql`
 
@@ -209,4 +209,4 @@ function CreateEvent(props) {
   );
 }
 
-export default CreateEvent;
+export default Authenticated(CreateEvent);
