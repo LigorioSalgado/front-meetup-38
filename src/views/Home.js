@@ -9,6 +9,7 @@ const GET_EVENTS = gql`
     getEvents {
       _id
       title
+      date
       createdAt
       created_by {
         first_name
@@ -30,9 +31,10 @@ function Home() {
                subtitle="Clone para aparender react">
            {data.getEvents.map(event => (
                 <Card
+                  id={event._id}
                   title={event.title}
-                  author={`${event.first_name} ${event.last_name} `}
-                  date={event.createdAt}
+                  author={`${event.created_by.first_name} ${event.created_by.last_name} `}
+                  date={event.date.split('T')[0]}
                 />
               ))}
        </Layout>

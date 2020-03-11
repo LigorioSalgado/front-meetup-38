@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import BG from '../img/home-bg.jpg';
 
 class MasterHead extends Component {
   constructor(props) {
@@ -30,7 +29,7 @@ class MasterHead extends Component {
 
   render() {
     return (
-      <header className="masthead" style={{backgroundImage:`url(${BG})`}} >
+      <header className="masthead" style={{backgroundImage:`url(${this.props.banner})`}} >
         <div className="overlay"></div>
         <div className="container">
           <div className="row">

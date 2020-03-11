@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import Home from './views/Home';
 import Login from './views/Login';
 import CreateEvent from './views/CreateEvent';
+import DetailEvent from './views/DetailEvent';
 
 
 function Routes(){
@@ -18,6 +19,7 @@ function Routes(){
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/event/new" component={CreateEvent} />
+            <Route exact path="/event/:id" component={DetailEvent} />
         </>
     )
 
