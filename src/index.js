@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -7,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import client from './graphql'
 import './scss/clean-blog.scss';
 
+config();
 
 ReactDOM.render(
 <ApolloProvider client={client}>   

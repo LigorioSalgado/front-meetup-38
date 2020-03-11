@@ -3,7 +3,7 @@ import { createUploadLink } from 'apollo-upload-client'; // La conexion con el s
 import { setContext } from 'apollo-link-context'; // Agrega cabeceras
 import { InMemoryCache } from 'apollo-cache-inmemory'; // Hace cache de queries
 
-const GRAPH_URI = 'https://b38-backend-meetup.herokuapp.com/';
+const GRAPH_URI = process.env.REACT_APP_API_URL;
 
 const httpLink = createUploadLink({
     uri:GRAPH_URI
